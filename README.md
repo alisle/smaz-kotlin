@@ -1,8 +1,4 @@
-# smaz-kotlin
-Kotlin port of Smaz Compression Algorithm
+# Kotlin port of Smaz Shared Dictionary Compression Algorithm.
+This is a kotlin implementation of the Smaz shared dictionary compression algorithm. This algorithm produces good results for strings which are typically too small to be compressed using Huffman based algorithms. This port is based off the Java implementation which can be found at Xiao [link](https://github.com/ayende/Xiao). 
 
-This is a kotlin implementation of the Smaz shared dictionary compression algorithm.
-The original algorithm can be found at:
-    https://github.com/antirez/smaz
-And this is based off the Java implementation:
-    https://github.com/ayende/Xiao/blob/master/XiaoJava/Xiao.java
+The original C implemenation of the algorithm can be found here [link](https://github.com/antirez/smaz).
