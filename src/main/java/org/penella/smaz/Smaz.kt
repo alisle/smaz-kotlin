@@ -1,5 +1,7 @@
 package org.penella.smaz
 
+import java.nio.charset.Charset
+
 /**
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,7 +72,7 @@ class Smaz {
         hashTable = arrayOfNulls<ByteArray>(MAX_BYTE_SIZE)
 
         for(x in 0 until termTableStrings.size) {
-            val bytes = termTableStrings[x].toByteArray()
+            val bytes = termTableStrings[x].toByteArray(Charsets.UTF_8)
             if(bytes.size > MAX_BYTE_SIZE) throw RuntimeException("Term ${termTableStrings[x]}  is too large!");
             termTableBytes[x] = bytes
             val buffer = ByteArray(bytes.size + 2)
@@ -114,10 +116,10 @@ class Smaz {
         var verbatimSize = 0
         var i = 0
         while(i < input.size) {
-            var h1 = input[i].toInt() shl 3
-            var h2 = if(i + 1 < input.size) h1 + input[i + 1].toInt() else 0
-            var h3 = if(i + 2 < input.size) h2 xor input[i + 2].toInt() else 0
-            var totalSize = if( i + maxTermSize >= input.size) input.size - i else maxTermSize
+            val h1 = input[i].toInt() shl 3
+            val h2 = if(i + 1 < input.size) h1 + input[i + 1].toInt() else 0
+            val h3 = if(i + 2 < input.size) h2 xor input[i + 2].toInt() else 0
+            val totalSize = if( i + maxTermSize >= input.size) input.size - i else maxTermSize
 
             var found = false
             for(size in totalSize downTo 0) {
@@ -214,7 +216,7 @@ class Smaz {
     }
 
     fun compressString(input: String) : ByteArray {
-        val buffer = ByteArray(input.length)
+        val buffer = ByteArray(input.length + 10)
         val size = this.compress(input.toByteArray(Charsets.UTF_8), buffer)
         return buffer.sliceArray(0 until size)
     }

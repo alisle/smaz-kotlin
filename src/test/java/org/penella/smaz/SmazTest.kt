@@ -44,6 +44,16 @@ class SmazTest {
     }
 
     @Test
+    fun testWorseCaseString() {
+        val subject = "Subject"
+        val compressor = Smaz()
+        val compressed = compressor.compressString(subject)
+        val decompressed = compressor.decompressString(compressed)
+        assertEquals(subject, decompressed)
+    }
+
+
+    @Test
     fun testCompressDecompressString() {
         val compress = Smaz()
         val test = "Hello World"
